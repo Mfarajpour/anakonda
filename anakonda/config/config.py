@@ -1,7 +1,7 @@
 from os import environ
 
 
-class config:
+class Config:
     ENV = environ.get("ANAKONDA_API_ENV", "production")
 
     DEBUG = bool(int(environ.get("ANAKONDA_API_DEBUG", "0")))
