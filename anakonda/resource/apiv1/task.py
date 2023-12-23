@@ -10,9 +10,9 @@ class TaskResource(Resource):
         get task info :  Get /api/v1/tasks/<task_id>
         """
         if task_id is None:
-           return TaskController.get_tasks()
+            return TaskController.get_tasks()
         else:
-            return TaskController.get_task(task_id)   
+            return TaskController.get_task(task_id)
 
     def post(self):
         """
@@ -26,13 +26,9 @@ class TaskResource(Resource):
         Update task : PATCH /api/v1/tasks/<task_id>
         """
         return TaskController.update_task(task_id)
-        
 
     def delete(self, task_id):
         """
         Delete task : DELETE /api/v1/task/<task_id>
         """
         return TaskController.delete_task(task_id)
-        
-        
-        
