@@ -14,14 +14,14 @@ class TaskResource(Resource):
         else:
             return TaskController.get_task(task_id)
 
-    def post(self):
+    def post(self, task_id):
         """
         For Create new task : POST /api/v1/tasks
         """
 
         return TaskController.create_task()
 
-    def patch(self):
+    def patch(self, task_id):
         """
         Update task : PATCH /api/v1/tasks/<task_id>
         """
