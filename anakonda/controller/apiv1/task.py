@@ -2,12 +2,14 @@ from flask import request
 
 from anakonda.anakonda import db
 from anakonda.config import Config
+from anakonda.decorator import json_required
 from anakonda.model import Task
 from anakonda.schema.apiv1 import TaskSchema
 from anakonda.util import jsonify, now
 
 
 class TaskController:
+    @json_required
     def get_tasks():
         try:
             tasks_schema = TaskSchema(many=True)
@@ -20,6 +22,7 @@ class TaskController:
 
         return jsonify(state=tasks_schema.dump(tasks))
 
+    @json_required
     def get_task(task_id):
         try:
             task_schema = TaskSchema()
@@ -34,6 +37,7 @@ class TaskController:
 
         return jsonify(task_schema.dump(task))
 
+    @json_required
     def create_task():
         try:
             task_schema = TaskSchema()
@@ -72,6 +76,7 @@ class TaskController:
 
         return jsonify(task_schema.dump(task), status=201)
 
+    @json_required
     def update_task(task_id):
         try:
             task_schema = TaskSchema(partial=True)
@@ -131,6 +136,7 @@ class TaskController:
             return jsonify(status=500, code=106)
         return jsonify(task_schema.dump(task))
 
+    @json_required
     def delete_task(task_id):
         try:
             task = Task.query.get(task_id)

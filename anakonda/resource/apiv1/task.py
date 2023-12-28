@@ -14,7 +14,7 @@ class TaskResource(Resource):
         else:
             return TaskController.get_task(task_id)
 
-    def post(self, task_id):
+    def post(self):
         """
         For Create new task : POST /api/v1/tasks
         """
