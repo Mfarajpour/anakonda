@@ -1,5 +1,7 @@
 Dockerfile
+deployments
 docker-compose.yaml
+docker-compose*.yaml
 deployments
 docker-compose*.yaml
 .dockerignore
