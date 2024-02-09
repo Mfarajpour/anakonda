@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: anakonda
+  labels:
+     app.kubernetes.io/name: anakonda
+     app.kubernetes.io/part-of: anakonda
+     app.kubernetes.io/project: anakonda
+     app.kubernetes.io/env: test
+spec:
+   ingressClassName: traefik
+   rules:
+     - host: test.cluster.local
+       http: 
+         paths:
+           - path: /
+             pathType: Prefix
+             backend: 
+                service:
+                  name: anakonda
+                  port:
+                    name: http
+  
