@@ -6,3 +6,6 @@ branch = true
 [tool.pytest.ini_options]
 testpaths = ["anakonda"]
 addopts = "-v"
+junit_logging = "all"
+junit_family = "xunit2"
+
