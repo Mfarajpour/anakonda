@@ -11,6 +11,7 @@ pipeline{
                       script {
                             
                             gitcommit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()    
+                            gitTag = sh(script: "git tag --points-at HEAD", returnStdout: true).trim()
                             anakondaImage = docker.build("103.216.61.74/anakonda:jenkins-pipeline-$BUILD_ID", "--build-arg GIT_COMMIT=${gitcommit} --build-arg JENKINS_PIPELINE=${BUILD_TAG} --build-arg BUILD_TAG=${BUILD_TAG} --build-arg BUILD_ID=${BUILD_ID} .")
                       }
                  } 
@@ -57,6 +58,18 @@ pipeline{
               steps {
                  script{
                     anakondaImage.push("latest")
+                    if (gitTag != ""){
+                         if (gitTag.startsWith("v")) {
+                            gitTag = gitTag.minus("v")
+                            anakondaFullVersion = gitTag
+                            version = gitTag.split("\\.")
+                            anakondaMajorVersion = version[0]
+                            anakondaMajorMinorVersion = version[0] + "." + version[1]
+                            anakondaImage.push(anakondaFullVersion)
+                            anakondaImage.push(anakondaMajorVersion)
+                            anakondaImage.push(anakondaMajorMinorVersion)
+                          }
+                    }
                  }
               }
           }  
@@ -66,4 +79,5 @@ pipeline{
              deleteDir()
              }
     }    
+
 }
