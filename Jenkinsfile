@@ -96,7 +96,19 @@ pipeline{
                             } 
                           }
                     }
-                 
+                 if ("$ANAKONDA_API_TRIGGER_DEV" == "true") {
+                       build ( 
+                             wait: false,
+                             propagate: false,
+                             waitForStart: true, 
+                             job: 'anakonda-cd-pipeline',
+                             parameters: [
+                                        string(name: 'ENV', value: 'development'),
+                                        string(name: 'IMAGE_NAME', value: "${ANAKONDA_API_DOCKER_REGISTRY_ADDRESS}/${ANAKONDA_API_IMAGE_NAME}"),
+                                        string(name: 'IMAGE_TAG', value: "$ANAKONDA_API_DEV_IMAGE_TYPE" == "stable" ? "${anakondaMajorMinorVersion}" : "latest")
+                                        ]
+                             ) 
+                    }
                  }
               }
           }  
